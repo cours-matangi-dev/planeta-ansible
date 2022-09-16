@@ -2,17 +2,17 @@
 # tasks file for docker_compose
 
 - name: Add docker signing key, will not download if present
-  ansible.builtin.apt_key:
+  apt_key:
     url: https://download.docker.com/linux/debian/gpg
     state: present
 
 - name: Add docker repository into sources list
-  ansible.builtin.apt_repository:
+  apt_repository:
     repo: deb [arch=amd64] https://download.docker.com/linux/debian bullseye stable
     state: present
 
 - name: Install a list of packages
-  ansible.builtin.apt:
+  apt:
     pkg:
       - ca-certificates 
       - curl 
