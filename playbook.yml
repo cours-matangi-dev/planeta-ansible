@@ -1,0 +1,7 @@
+
+- name: roles deploy wordpress
+  hosts: planeta
+  become: yes
+  roles:
+    - docker_compose
+

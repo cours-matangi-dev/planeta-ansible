@@ -1,0 +1,24 @@
+---
+# tasks file for docker_compose
+
+- name: create directory
+  file:
+    path: /tmp/app
+    state: directory
+
+- name: copy app to tmp
+  copy:
+    src: "."
+    dest: /tmp/app
+
+- name: test docker-compose
+  docker_compose:
+    project_src: /tmp/app
+    files: docker-compose.yml
+    state: present
+  register: __docker_compose_output
+
+- name: debug
+  debug: 
+    var: __docker_compose_output
+

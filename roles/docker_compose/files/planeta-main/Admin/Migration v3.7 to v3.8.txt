@@ -1,0 +1,10 @@
+1) Ajouter le champ FamilyMonthlyNurseryMode à la table Families :
+ALTER TABLE `Families` ADD `FamilyMonthlyNurseryMode` TINYINT UNSIGNED NOT NULL DEFAULT '0' AFTER `FamilyMonthlyContributionMode`;
+
+2) Ajouter le champ HistoFamilyMonthlyNurseryMode à la table HistoFamilies :
+ALTER TABLE `HistoFamilies` ADD `HistoFamilyMonthlyNurseryMode` TINYINT UNSIGNED NOT NULL DEFAULT '0' AFTER `HistoFamilyMonthlyContributionMode`;
+
+3) Ajouter le champ BillOtherAmount à la table Bills :
+ALTER TABLE `Bills` ADD `BillOtherAmount` DECIMAL(10,2) NOT NULL DEFAULT '0.00' AFTER `BillNurseryNbDelays`;
+
+4) MAJ fichiers php/js/css

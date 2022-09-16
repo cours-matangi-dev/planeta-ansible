@@ -1,0 +1,7 @@
+td span.ResultOK {
+  color: #04b810;
+}
+
+td span.ResultNOK {
+  color: #f00;
+}

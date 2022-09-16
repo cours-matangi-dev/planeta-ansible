@@ -1,0 +1,11 @@
+all:
+  children:
+    wordpress_group: 
+      hosts:
+        planeta: 
+          ansible_host: 54.164.113.178
+    dbserver:
+      hosts:
+        nfs_client:
+          ansible_host: 54.204.74.90
+

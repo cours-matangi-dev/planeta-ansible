@@ -1,0 +1,67 @@
+1) Ajout des tables du forum :
+CREATE TABLE `ForumCategories` (
+`ForumCategoryID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `ForumCategoryName` varchar(50) NOT NULL,
+  `ForumCategoryDescription` varchar(255) DEFAULT NULL,
+  `ForumCategoryDefaultLang` char(2) NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Table which contains forum categories.';
+
+CREATE TABLE `ForumCategoriesAccess` (
+`ForumCategoryAccessID` smallint(5) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `ForumCategoryAccess` char(1) NOT NULL,
+  `ForumCategoryID` tinyint(3) unsigned NOT NULL,
+  `SupportMemberStateID` tinyint(3) unsigned NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Table which contains forum access to categories.';
+
+CREATE TABLE `ForumMessages` (
+`ForumMessageID` int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `ForumMessageDate` datetime NOT NULL,
+  `ForumMessageContent` mediumtext NOT NULL,
+  `ForumMessagePicture` varchar(255) NULL,
+  `ForumReplyToMessageID` int(10) unsigned DEFAULT NULL,
+  `ForumMessageUpdateDate` datetime DEFAULT NULL,
+  `ForumTopicID` mediumint(8) unsigned NOT NULL,
+  `SupportMemberID` smallint(5) unsigned NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Table which contains forum messages.';
+
+CREATE TABLE `ForumTopics` (
+`ForumTopicID` mediumint(8) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `ForumTopicTitle` varchar(255) NOT NULL,
+  `ForumTopicDate` datetime NOT NULL,
+  `ForumTopicExpirationDate` date DEFAULT NULL,
+  `ForumTopicStatus` tinyint(3) unsigned NOT NULL,
+  `ForumTopicIcon` tinyint(3) unsigned NOT NULL,
+  `ForumTopicRank` tinyint(3) unsigned DEFAULT NULL,
+  `ForumTopicNbViews` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `ForumTopicNbAnswers` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `ForumCategoryID` tinyint(3) unsigned NOT NULL,
+  `SupportMemberID` smallint(5) unsigned NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Table which contains forum topics.';
+
+CREATE TABLE `ForumTopicsLastReads` (
+`ForumTopicLastReadID` int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `ForumTopicLastReadMessageID` int(10) unsigned NOT NULL,
+  `ForumTopicID` mediumint(8) unsigned NOT NULL,
+  `SupportMemberID` smallint(5) unsigned NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Table which contains last forum messages read by supporters.';
+
+CREATE TABLE `ForumTopicsSubscribtions` (
+`ForumTopicSubscribtionID` mediumint(8) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `ForumTopicSubscribtionEmail` varchar(100) NOT NULL,
+  `ForumTopicID` mediumint(8) unsigned NOT NULL,
+  `SupportMemberID` smallint(5) unsigned NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Table which contains subscritions of supporters to forum topics.';
+
+ALTER TABLE `ForumCategoriesAccess` ADD KEY `SupportMemberStateID` (`SupportMemberStateID`), ADD KEY `ForumCategoryID` (`ForumCategoryID`);
+ALTER TABLE `ForumMessages` ADD KEY `ForumTopicID` (`ForumTopicID`), ADD KEY `SupportMemberID` (`SupportMemberID`);
+ALTER TABLE `ForumTopics` ADD KEY `ForumCategoryID` (`ForumCategoryID`), ADD KEY `SupportMemberID` (`SupportMemberID`);
+ALTER TABLE `ForumTopicsLastReads` ADD KEY `ForumTopicID` (`ForumTopicID`), ADD KEY `SupportMemberID` (`SupportMemberID`);
+ALTER TABLE `ForumTopicsSubscribtions` ADD KEY `ForumTopicID` (`ForumTopicID`), ADD KEY `SupportMemberID` (`SupportMemberID`);
+
+
+2) Ajout des champs des photos dans la table Families :
+ALTER TABLE `Families` ADD `FamilyMainPicture` VARCHAR(255) NULL AFTER `FamilyMainEmailInCommittee`;
+ALTER TABLE `Families` ADD `FamilySecondPicture` VARCHAR(255) NULL AFTER `FamilySecondEmailInCommittee`;
+
+
+3) MAJ fichiers php/js/css

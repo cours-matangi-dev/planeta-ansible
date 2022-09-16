@@ -1,0 +1,48 @@
+---
+version: '3.7'
+
+services:
+  db:
+#    build:
+#      context: .
+#      dockerfile: ./mysql/Dockerfile
+    image: mysql:8-debian
+    container_name: db
+    restart: always
+    networks:
+      - network_app
+    cap_add:
+      - SYS_NICE
+    environment:
+      - MYSQL_ROOT_PASSWORD=calendreta_agen
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=calendreta_agen
+      - MYSQL_DATABASE=CantineTest
+      - TZ='Europe/Paris'
+    volumes:
+      - mydatavolume:/var/lib/mysql
+  phpmyadmin:
+    build:
+      context: .
+      dockerfile: ./phpmyadmin/Dockerfile
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+#    volumes:
+#      - ./data/certbot/conf:/etc/letsencrypt
+    networks:
+      - network_app
+    environment:
+      - PMA_HOST=db
+      - TZ="Europe/Paris"
+#volumes:
+#  frontendbuild:
+#    name: frontendbuild
+networks:
+  network_app:
+    name: network_app
+volumes:
+  mydatavolume:

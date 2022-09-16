@@ -1,0 +1,5 @@
+deploy_wordpress_name: "toto"
+deploy_wordpress_url: "toto"
+deploy_wordpress_mariadb_user: "mariadb_toto"
+deploy_wordpress_mariadb_password: "password"
+deploy_wordpress_container_port: "80"

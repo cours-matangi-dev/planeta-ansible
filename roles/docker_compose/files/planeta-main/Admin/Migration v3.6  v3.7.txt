@@ -1,0 +1,4 @@
+1) Ajouter le champ SupportMemberStateOptions à la table SupportMembersStates :
+ALTER TABLE `SupportMembersStates` ADD `SupportMemberStateOptions` TINYINT(0) UNSIGNED NOT NULL;
+
+2) MAJ fichiers php/js/css
