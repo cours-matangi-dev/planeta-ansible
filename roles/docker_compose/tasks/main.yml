@@ -1,6 +1,39 @@
 ---
 # tasks file for docker_compose
 
+- name: Add docker signing key, will not download if present
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- name: Add docker repository into sources list
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian bullseye stable
+    state: present
+
+- name: Install a list of packages
+  ansible.builtin.apt:
+    pkg:
+      - ca-certificates 
+      - curl 
+      - gnupg 
+      - lsb-release
+      - docker-ce
+      - docker-ce-cli
+      - docker-compose
+      - containerd.io
+      - docker-compose-plugin
+- name: Make sure we have a 'docker' group
+  group:
+    name: docker
+    state: present
+
+- name: make sure admin user is in docker group
+  user:
+    name: "admin"
+    state: "present"
+    groups: docker
+        
 - name: create directory
   file:
     path: /tmp/app
