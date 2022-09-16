@@ -1,5 +1,8 @@
 ---
 # tasks file for docker_compose
+- name: Install a list of packages
+  apt:
+    name: gpg 
 
 - name: Add docker signing key, will not download if present
   apt_key:
