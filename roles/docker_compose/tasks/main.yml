@@ -1,6 +1,6 @@
 ---
 # tasks file for docker_compose
-- name: Install a list of packages
+- name: Install gpg
   apt:
     name: gpg 
 
@@ -26,6 +26,7 @@
       - docker-compose
       - containerd.io
       - docker-compose-plugin
+      - rsync
 - name: Make sure we have a 'docker' group
   group:
     name: docker
@@ -42,9 +43,14 @@
     path: /tmp/app
     state: directory
 
-- name: copy app to tmp
-  copy:
-    src: "."
+- name: create directory
+  file:
+    path: "/tmp/app"
+    state: directory
+
+- name: sync of file
+  synchronize:
+    src: .
     dest: /tmp/app
 
 - name: test docker-compose

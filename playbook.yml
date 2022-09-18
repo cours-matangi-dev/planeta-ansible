@@ -1,5 +1,5 @@
 
-- name: roles deploy wordpress
+- name: roles deploy planeta
   hosts: planeta
   become: yes
   roles:
