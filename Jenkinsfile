@@ -14,7 +14,7 @@ pipeline{
 			steps {
                 sh 'rm -rf result.xml'                
                 sh "sed -i -e 's/54.164.113.178/${Serveur}/g' planeta_test.jmx"
-				sh '/usr/bin/jmeter -n -Jjmeter.save.saveservice.timestamp_format="yyyy/MM/dd HH:mm:ss" -t planeta_test.jmx -l result.xml'
+				sh '/home/user/.jmeter/apache-jmeter-5.5/bin/jmeter -n -Jjmeter.save.saveservice.timestamp_format="yyyy/MM/dd HH:mm:ss" -t planeta_test.jmx -l result.xml'
                 sh 'cat result.xml'
                 perfReport('result.xml')
 			}
